@@ -1,0 +1,22 @@
+.game {
+    display: flex;
+    justify-content: center;
+    column-gap: 50px;
+}
+
+.custom-button {
+    display: block;
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    font-size: 24px;
+  }
+
+.custom-button:hover {
+    background-color: yellow;
+  }
