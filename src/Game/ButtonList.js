@@ -1,12 +1,12 @@
 import React from 'react';
 import './Game.css';
 
-const ButtonList = ({ buttonData, handleButtonClick }) => {
+const ButtonList = ({ buttonData, language, handleButtonClick }) => {
   return (
     <div>
       {buttonData.map((button, index) => (
         <button key={index} onClick={() => handleButtonClick(button)} className="custom-button">
-          {button.label}
+          {button[language]}
         </button>
       ))}
     </div>
