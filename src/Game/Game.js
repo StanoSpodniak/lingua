@@ -3,13 +3,17 @@ import './Game.css';
 import React, { useState, useEffect } from 'react';
 import Spanish from '../Data/Spanish.json';
 
+//Skúsiť to urobiť na spôsob language benchmark. Bude desať levelov. Každý level bude mať 50 slov rozdelených podľa obtiažnosti. Na konci sa bude počítať čas a chyby - z toho sa vypočíta konečné skóre.
+
 const Game = () => {
   const [wordData, setWordData] = useState([]);
   const [randomEnglish, setRandomEnglish] = useState([]);
   const [randomSpanish, setRandomSpanish] = useState([]);
 
-  const [firstChoice, setFirstChoice] = useState("none");
-  const [secondChoice, setSecondChoice] = useState("none");
+  const [selectedButton, setSelectedButton] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  const [buttonColors, setButtonColors] = useState(["red", "black", "white", "white", "lightblue", "white", "white"]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +37,7 @@ const Game = () => {
     setRandomSpanish(shuffle(randomEnglish))
   }, [randomEnglish])
 
-  //skusit dat tieto funkcie do ineho suboru
+  //skusit dat tieto dve funkcie do ineho suboru
   const getRandomItems = (array, count) => {
     const shuffled = array.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
@@ -48,29 +52,27 @@ const Game = () => {
     return shuffled;
   };
 
-  const handleButtonClick = (button) => {
-    //asi to skusit urobit cez lokal storage
-    
-    console.log(firstChoice);
-    console.log(secondChoice);
+  const handleButtonClick = (button, language, index) => {
+    //cez funkciu bude tiez treba menit css button
+    setSelectedLanguage(language);
+    setSelectedButton(button.id);
+    console.log(index);
 
-    if (secondChoice === "none") {
-      setSecondChoice(button.id)
-    } else {
-      setFirstChoice(button.id);
-    }
-
-    if (firstChoice === secondChoice) {
-      console.log("correct: " + button.english + " = " + button.spanish);
-    } else {
-      console.log("First: " + firstChoice + " Second: " + secondChoice);
+    if (selectedButton !== null) {
+      if (selectedButton === button.id && selectedLanguage !== language) {
+        console.log("correct");
+      } else if (selectedButton !== button.id && selectedLanguage !== language) {
+        console.log("incorrect");
+      } else {
+  
+      }
     }
   };
 
   return (
     <div className="game">
-      <ButtonList buttonData={randomEnglish} language={"english"}  handleButtonClick={handleButtonClick} />
-      <ButtonList buttonData={randomSpanish} language={"spanish"} handleButtonClick={handleButtonClick} />
+      <ButtonList buttonData={randomEnglish} language={"english"} handleButtonClick={handleButtonClick} backgroundColor={buttonColors} />
+      <ButtonList buttonData={randomSpanish} language={"spanish"} handleButtonClick={handleButtonClick} backgroundColor={buttonColors} />
     </div>
   );
 };
