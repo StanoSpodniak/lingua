@@ -13,7 +13,7 @@ const Game = () => {
   const [selectedButton, setSelectedButton] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
-  const [buttonColors, setButtonColors] = useState(["red", "black", "white", "white", "lightblue", "white", "white"]);
+  const [buttonColors, setButtonColors] = useState(["white", "white", "white", "white", "white", "white", "white"]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,23 +56,24 @@ const Game = () => {
     //cez funkciu bude tiez treba menit css button
     setSelectedLanguage(language);
     setSelectedButton(button.id);
-    console.log(index);
 
     if (selectedButton !== null) {
       if (selectedButton === button.id && selectedLanguage !== language) {
-        console.log("correct");
+        //console.log("correct");
+        
       } else if (selectedButton !== button.id && selectedLanguage !== language) {
-        console.log("incorrect");
+        //console.log("incorrect");
       } else {
-  
+        setButtonColors(...buttonColors, buttonColors[index] = "lightblue");
+        console.log(buttonColors);
       }
     }
   };
 
   return (
     <div className="game">
-      <ButtonList buttonData={randomEnglish} language={"english"} handleButtonClick={handleButtonClick} backgroundColor={buttonColors} />
-      <ButtonList buttonData={randomSpanish} language={"spanish"} handleButtonClick={handleButtonClick} backgroundColor={buttonColors} />
+      <ButtonList buttonData={randomEnglish} language={"english"} handleButtonClick={handleButtonClick} bgColor={buttonColors} />
+      <ButtonList buttonData={randomSpanish} language={"spanish"} handleButtonClick={handleButtonClick} bgColor={buttonColors} />
     </div>
   );
 };
